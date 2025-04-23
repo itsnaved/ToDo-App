@@ -40,15 +40,25 @@ app.get("/todo",(req,res)=>{
 //   }
 // });
 
-app.post('/todos', (req, res) => {
-  const newTodo = {
-    id: Math.floor(Math.random() * 1000000), // unique random id
-    title: req.body.title,
-    description: req.body.description
-  };
-  todos.push(newTodo);
-  res.status(201).json(newTodo);
+app.post("/todo",(req,res)=>{
+    
+    let newTodo={
+        id: Math.floor(Math.random() * 1000000),
+        title: req.body.title,
+        description: req.body.description
+    }
+    fs.readFile("todos.json","utf-8", (err, data)=>{
+        if(err) throw (err);
+        const todos = JSON.parse(data);
+        todos.push(newTodo);
+        fs.writeFile("todos.json", JSON.stringify(todos),(err)=>{
+            if(err) throw err; 
+            res.status(201).json(newTodo);
+        })
+    })
+    
 });
+
 
 // app.put('/todos/:id', (req, res) => {
 //   const todoIndex = findIndex(todos, parseInt(req.params.id));
