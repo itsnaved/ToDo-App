@@ -5,8 +5,6 @@ const port=3000;
 
 app.use(bodyParser.json());
 
-let todos = [];
-
 function findIndex(arr, id) {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].id === id) return i;
@@ -22,8 +20,15 @@ function removeAtIndex(arr, index) {
   return newArray;
 }
 
-app.get('/todosss', (req, res) => {
-  res.json(todos);
+app.get("/todo",(req,res)=>{
+    fs.readFile("todos.json","utf-8", (err, data)=>{
+        if(err) throw(err)
+            else{
+                var answer = JSON.parse(data);
+                res.json(answer);
+            }
+    })
+    
 });
 
 // app.get('/todos/:id', (req, res) => {
