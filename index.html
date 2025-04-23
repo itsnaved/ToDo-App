@@ -4,13 +4,25 @@
             ToDo App
         </title>
     </head>
-    <script></script>
+    <script>
+        function parsedResponse(data){
+            console.log(data);
+        }
+        function callback(resp){
+            resp.json().then(parsedResponse);
+        }
+        function onPress(){
+            fetch("http://localhost:3000/todo",{method: "GET"}).then(callback);
+        }
+    </script>
     <body>
         Todo Title
         <input placeholder="Title" type="text" id="title">
         <br><br>
         Todo Description
         <input placeholder="Description" id="description">
+        <br><br>
+        <button  onclick="onPress()">Send Todo</button>
 
     </body>
 </html>
