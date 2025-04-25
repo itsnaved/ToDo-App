@@ -5,24 +5,36 @@
         </title>
     </head>
     <script>
-        function parsedResponse(data){
+        function todosCallback(data){
             console.log(data);
+            var parentElement= document.getElementById("mainArea");
         }
-        function callback(resp){
-            resp.json().then(parsedResponse);
+        function callbackFn(resp){
+            resp.json().then(todosCallback);
         }
         function onPress(){
-            fetch("http://localhost:3000/todo",{method: "GET"}).then(callback);
+            fetch("http://localhost:3000/todo",{
+                method: "POST",
+                body: JSON.stringify({
+                    title: "gym",
+                    description: "Got to gym by 7-9"
+                }),
+                headers:{
+                    "Content-Type": "application/json"
+                }}).then(callbackFn);
         }
     </script>
     <body>
-        Todo Title
+        Title
         <input placeholder="Title" type="text" id="title">
         <br><br>
-        Todo Description
+        Description
         <input placeholder="Description" id="description">
         <br><br>
         <button  onclick="onPress()">Send Todo</button>
+        <div id="mainArea">
+            Hii There
+        </div>
 
     </body>
 </html>
