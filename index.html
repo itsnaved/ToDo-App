@@ -12,7 +12,21 @@
             // parentElement.innerHTML= JSON.stringify(data);
             for(let i=0; i< data.length; i++){
                 var childElement = document.createElement("div");
-                childElement.innerHTML= data[i].title;
+
+                var grandChildElement1= document.createElement("span");
+                grandChildElement1.innerHTML=data[i].title; 
+
+                var grandChildElement2= document.createElement("span");
+                grandChildElement2.innerHTML=data[i].description; 
+
+                var grandChildElement3= document.createElement("button");
+                grandChildElement3.innerHTML="Delete"; 
+
+                childElement.appendChild(grandChildElement1);
+                childElement.appendChild(grandChildElement2);
+                childElement.appendChild(grandChildElement3);
+
+
                 parentElement.appendChild(childElement);
             }
         }
