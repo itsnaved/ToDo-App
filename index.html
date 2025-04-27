@@ -5,6 +5,30 @@
         </title>
     </head>
     <script>
+
+        function todoCallback(data){
+            console.log(data);
+            var parentElement= document.getElementById("mainArea");
+            // parentElement.innerHTML= JSON.stringify(data);
+            for(let i=0; i< data.length; i++){
+                var childElement = document.createElement("div");
+                childElement.innerHTML= data[i].title;
+                parentElement.appendChild(childElement);
+            }
+        }
+
+        function getDataCallback(resp){
+            resp.json().then(todoCallback);
+        }
+
+        function getData(){
+            fetch("http://localhost:3000/todo",{
+                method: "GET"
+               
+                }).then(getDataCallback);
+        }
+        getData();
+
         function todosCallback(data){
             console.log(data);
             var parentElement= document.getElementById("mainArea");
@@ -13,11 +37,13 @@
             resp.json().then(todosCallback);
         }
         function onPress(){
+            var title= document.getElementById("title").value;
+            var description= document.getElementById("description").value;
             fetch("http://localhost:3000/todo",{
                 method: "POST",
                 body: JSON.stringify({
-                    title: "gym",
-                    description: "Got to gym by 7-9"
+                    title: title,
+                    description: description
                 }),
                 headers:{
                     "Content-Type": "application/json"
@@ -33,7 +59,7 @@
         <br><br>
         <button  onclick="onPress()">Send Todo</button>
         <div id="mainArea">
-            Hii There
+             
         </div>
 
     </body>
